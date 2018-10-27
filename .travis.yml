@@ -19,5 +19,6 @@ deploy:
   skip_cleanup: true
   on:
     branch: master
+    jdk: oraclejdk8
     repo: pavel-github/showcase-maven-travis-release
     tags: true
