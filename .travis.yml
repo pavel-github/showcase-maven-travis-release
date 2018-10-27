@@ -14,4 +14,8 @@ install: true
 jobs:
   include:
     - stage: test
-      script: ./mvnw --show-version --batch-mode --errors test
+      script: ./mvnw test --show-version --batch-mode --errors
+
+    - stage: release
+      if: branch = master AND tag = true
+      script: ./mvnw deploy --show-version --batch-mode --errors --settings .travis/settings.xml -Drevision=$TRAVIS_TAG
