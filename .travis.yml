@@ -16,7 +16,7 @@ script: ./mvnw test --show-version --batch-mode --errors
 jobs:
   include:
     - stage: "Release"
-      if: branch = master
+      if: branch = master AND type = push
       script: skip
       deploy:
         provider: script
