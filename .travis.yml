@@ -16,7 +16,8 @@ script: ./mvnw test --show-version --batch-mode --errors
 jobs:
   include:
     - stage: "Release"
-      script: true
+      if: branch = master
+      script: skip
       deploy:
         provider: script
         script: ./mvnw deploy --show-version --batch-mode --errors --settings .travis/settings.xml -Drevision=$TRAVIS_TAG
