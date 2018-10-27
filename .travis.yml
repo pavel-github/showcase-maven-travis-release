@@ -1,21 +1,24 @@
 sudo: false
 language: java
 
-jdk:
-  - oraclejdk8
-  - openjdk8
-
 cache:
   directories:
     - "$HOME/.m2/repository"
     - "$HOME/.m2/wrapper"
 
 install: true
-script: ./mvnw test --show-version --batch-mode --errors
 
 jobs:
   include:
-    - stage: "release"
+    - stage: "Tests"
+      name: "against Oracle JDK"
+      script: ./mvnw test --show-version --batch-mode --errors
+      jdk: oraclejdk8
+    - stage: "Tests"
+      name: "against OpenJDK"
+      script: ./mvnw test --show-version --batch-mode --errors
+      jdk: openjdk8
+    - stage: "Release"
       script: true
       deploy:
         provider: script
