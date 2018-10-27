@@ -3,6 +3,7 @@ language: java
 
 jdk:
   - oraclejdk8
+  - openjdk8
 
 cache:
   directories:
@@ -10,12 +11,10 @@ cache:
     - "$HOME/.m2/wrapper"
 
 install: true
+script: ./mvnw test --show-version --batch-mode --errors
 
 jobs:
   include:
-    - stage: test
-      script: ./mvnw test --show-version --batch-mode --errors
-
     - stage: release
       if: branch = master AND tag = true
       script: ./mvnw deploy --show-version --batch-mode --errors --settings .travis/settings.xml -Drevision=$TRAVIS_TAG
