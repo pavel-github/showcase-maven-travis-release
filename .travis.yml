@@ -14,4 +14,4 @@ install: true
 jobs:
   include:
     - stage: test
-      script: ./mvnw --show-version --batch-mode test
+      script: ./mvnw --show-version --batch-mode --errors test
