@@ -13,8 +13,11 @@ cache:
 install: true
 script: ./mvnw test --show-version --batch-mode --errors
 
-jobs:
-  include:
-    - stage: release
-      if: branch = master AND tag = true
-      script: ./mvnw deploy --show-version --batch-mode --errors --settings .travis/settings.xml -Drevision=$TRAVIS_TAG
+deploy:
+  provider: script
+  script: ./mvnw deploy --show-version --batch-mode --errors --settings .travis/settings.xml -Drevision=$TRAVIS_TAG
+  skip_cleanup: true
+  on:
+    branch: master
+    repo: pavel-github/showcase-maven-travis-release
+    tags: true
