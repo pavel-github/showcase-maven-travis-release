@@ -16,11 +16,13 @@ script: ./mvnw test --show-version --batch-mode --errors
 jobs:
   include:
     - stage: "Release"
-      if: branch = master AND type = push AND tag IS present
-      script: skip
+      if: type = push
+      script: true
       deploy:
         provider: script
         script: ./mvnw deploy --show-version --batch-mode --errors --settings .travis/settings.xml -Drevision=$TRAVIS_TAG
         on:
+          branch: master
           jdk: oraclejdk8
           repo: pavel-github/showcase-maven-travis-release
+          tags: true
