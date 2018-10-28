@@ -17,7 +17,7 @@ jobs:
   include:
     - stage: "Release"
       if: branch = master AND type = push AND tag IS present
-      script: skip
+      script: true
       deploy:
         provider: script
         script: ./mvnw deploy --show-version --batch-mode --errors --settings .travis/settings.xml -Drevision=$TRAVIS_TAG
