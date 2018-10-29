@@ -30,6 +30,5 @@ jobs:
         script: ./mvnw deploy --show-version --batch-mode --errors --settings .travis/settings.xml -Drevision=$TRAVIS_TAG
         on:
           branch: master
-          jdk: oraclejdk8
           repo: pavel-github/showcase-maven-travis-release
           tags: true
