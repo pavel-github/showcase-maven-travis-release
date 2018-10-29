@@ -10,12 +10,18 @@ cache:
     - "$HOME/.m2/repository"
     - "$HOME/.m2/wrapper"
 
-install: true
-script: ./mvnw test --show-version --batch-mode --errors
+stages:
+  - test
+  - release
 
 jobs:
   include:
-    - stage: "Release"
+    - stage: test
+      if: type = pull_request
+      install: true
+      script: ./mvnw test --show-version --batch-mode --errors
+
+    - stage: release
       if: type = push AND tag is present
       script: true
       deploy:
