@@ -11,16 +11,10 @@ cache:
     - "$HOME/.m2/wrapper"
 
 install: true
-branches:
-  only:
-  - master
+script: ./mvnw test --show-version --batch-mode --errors
 
 jobs:
   include:
-    - stage: "Tests"
-      if: type = pull_request
-      script: ./mvnw test --show-version --batch-mode --errors
-
     - stage: "Release"
       if: type = push
       script: true
