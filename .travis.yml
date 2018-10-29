@@ -10,18 +10,19 @@ jobs:
   include:
     - stage: test
       if: type = pull_request
-      install: true
       jdk: oraclejdk8
+      install: true
       script: ./mvnw test --show-version --batch-mode --errors
 
     - stage: test
       if: type = pull_request
-      install: true
       jdk: openjdk8
+      install: true
       script: ./mvnw test --show-version --batch-mode --errors
 
     - stage: release
       if: type = push AND tag is present
+      install: true
       script: true
       deploy:
         provider: script
