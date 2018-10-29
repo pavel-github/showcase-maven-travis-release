@@ -10,6 +10,10 @@ cache:
     - "$HOME/.m2/repository"
     - "$HOME/.m2/wrapper"
 
+branches:
+  only:
+  - master
+
 jobs:
   include:
     - stage: "Tests"
