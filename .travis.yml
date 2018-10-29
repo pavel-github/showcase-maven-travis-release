@@ -22,6 +22,7 @@ jobs:
 
     - stage: release
       if: type = push AND tag is present
+      jdk: oraclejdk8
       install: true
       script: true
       deploy:
