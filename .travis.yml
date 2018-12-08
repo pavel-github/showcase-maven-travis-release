@@ -22,8 +22,8 @@ jobs:
       provider: script
       script: ./mvnw deploy --show-version --batch-mode --errors --settings .travis/settings.xml -Drevision=$TRAVIS_TAG
       on:
-        all_branches: true
-        condition: $TRAVIS_BRANCH =~ ^master|2.0.0-dev$
+        branch: master OR 2.0.0-dev
+        #condition: $TRAVIS_BRANCH =~ ^master|2.0.0-dev$
         jdk: oraclejdk8
         repo: pavel-github/showcase-maven-travis-release
         tags: true
