@@ -1,34 +1,29 @@
 sudo: false
 language: java
 
+jdk:
+- oraclejdk8
+- openjdk8
+
 cache:
   directories:
-    - "$HOME/.m2/repository"
-    - "$HOME/.m2/wrapper"
+  - "$HOME/.m2/repository"
+  - "$HOME/.m2/wrapper"
+
+install: true
+script: ./mvnw test --show-version --batch-mode --errors
 
 jobs:
   include:
-    - stage: test
-      if: type = pull_request
-      jdk: oraclejdk8
-      install: true
-      script: ./mvnw test --show-version --batch-mode --errors
-
-    - stage: test
-      if: type = pull_request
-      jdk: openjdk8
-      install: true
-      script: ./mvnw test --show-version --batch-mode --errors
-
-    - stage: release
-      if: type = push AND tag is present
-      jdk: oraclejdk8
-      install: true
-      script: true
-      deploy:
-        provider: script
-        script: ./mvnw deploy --show-version --batch-mode --errors --settings .mvn/settings.xml -Drevision=$TRAVIS_TAG
-        on:
-          branch: master
-          repo: pavel-github/showcase-maven-travis-release
-          tags: true
+  - stage: "Release"
+    if: type = push AND tag is present
+    script: true
+    deploy:
+      provider: script
+      script: ./mvnw deploy --show-version --batch-mode --errors --settings .mvn/settings.xml -Drevision=$TRAVIS_TAG
+      on:
+        branch: master OR 2.0.0-dev
+        #condition: $TRAVIS_BRANCH =~ ^master|2.0.0-dev$
+        jdk: oraclejdk8
+        repo: pavel-github/showcase-maven-travis-release
+        tags: true
